@@ -52,6 +52,12 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, 4);
 
 AXP20X_Class PMU;
 bool  axpIrq = 0;
+void turnOffRTC(){
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_OFF);
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_OFF);
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_OFF);
+    esp_sleep_pd_config(ESP_PD_DOMAIN_XTAL, ESP_PD_OPTION_OFF);
+}
 
 void setFlag(void)
 {
@@ -193,9 +199,13 @@ void disablePeripherals()
 {
     PMU.setPowerOutPut(AXP192_LDO2, AXP202_OFF);
     PMU.setPowerOutPut(AXP192_LDO3, AXP202_OFF);
-    //PMU.setPowerOutPut(AXP192_DCDC1, AXP202_OFF);
+
+    //PMU.setPowerOutPut(AXP192_DCDC3, AXP202_OFF);
+    //PMU.setDCDC3Voltage(1800);  //Set to lower volts, save power?
+    PMU.setPowerOutPut(AXP192_DCDC3, AXP202_ON);  //Power for the esp32
+
+    PMU.setPowerOutPut(AXP192_DCDC1, AXP202_OFF);
     PMU.setPowerOutPut(AXP192_DCDC2, AXP202_OFF);
-    PMU.setPowerOutPut(AXP192_DCDC3, AXP202_ON);
     PMU.setPowerOutPut(AXP192_EXTEN, AXP202_OFF);
 
 #ifdef HAS_SPI

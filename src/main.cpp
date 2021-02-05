@@ -62,6 +62,7 @@ void sleep(){
     esp_sleep_enable_timer_wakeup(60*1000*1000);
     radio.sleep();
     disablePeripherals();
+    turnOffRTC();
     delay(1000);
     esp_deep_sleep_start();
 }
