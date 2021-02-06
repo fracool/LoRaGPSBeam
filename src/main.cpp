@@ -7,7 +7,7 @@
 
 #include <TinyGPS++.h>
 #define HAS_SPI
-#include <TBeam.h> //Fraser's special TBeam header
+#include <TBeam.h>
 
 #define DELAY 1000  //screen refresh delay
 #define TRANSMISSION_DELAY 30000  //LoRa Transmission delay
