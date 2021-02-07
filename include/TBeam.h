@@ -8,21 +8,21 @@
 #endif //TINYGPS_TBEAM_H
 #define GPS_RX_PIN                  34
 #define GPS_TX_PIN                  12
-#define GPS_BAND_RATE      9600
+#define GPS_BAND_RATE               9600
 #define BUTTON_PIN                  38
 #define BUTTON_PIN_MASK             GPIO_SEL_38
 #define I2C_SDA                     21
 #define I2C_SCL                     22
 #define PMU_IRQ                     35
 
-#define RADIO_SCLK              5
-#define RADIO_MISO              19
-#define RADIO_MOSI             27
-#define RADIO_CS             18
-#define RADIO_DI0           26
-#define RADIO_RST              23
-#define RADIO_DIO1         33
-#define RADIO_BUSY           32
+#define RADIO_SCLK                  5
+#define RADIO_MISO                  19
+#define RADIO_MOSI                  27
+#define RADIO_CS                    18
+#define RADIO_DI0                   26
+#define RADIO_RST                   23
+#define RADIO_DIO1                  33
+#define RADIO_BUSY                  32
 #define LoRa_frequency 868.0
 
 #define BOARD_LED                   4
@@ -34,15 +34,15 @@
 
 //#define HAS_SPI // HAS_I2C THIS IS DEFINED IN MAIN
 
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+#define SCREEN_WIDTH                128 // OLED display width, in pixels
+#define SCREEN_HEIGHT               64 // OLED display height, in pixels
 // Declaration for SSD1306 display connected using software SPI (default case):
-#define OLED_MOSI   14
-#define OLED_CLK   13
-#define OLED_DC    33
-#define OLED_CS    32
-#define OLED_RESET 25
-#define OLED_PWR 2
+#define OLED_MOSI                   14
+#define OLED_CLK                    13
+#define OLED_DC                     33
+#define OLED_CS                     32
+#define OLED_RESET                  25
+#define OLED_PWR                    2
 
 #ifdef HAS_SPI
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);//Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);////

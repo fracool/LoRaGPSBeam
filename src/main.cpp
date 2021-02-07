@@ -9,8 +9,8 @@
 #define HAS_SPI  // Tbeam.h needs to know whether to use an SPI (7 wires) or I2C (4 wires) (inc. gnd and vcc)
 #include <TBeam.h>  // Pins are set for display in here
 
-#define DELAY 1000  //screen refresh delay (ms)
-#define TRANSMISSION_DELAY 30000  //LoRa Transmission delay (ms)
+#define DELAY               1000  //screen refresh delay (ms)
+#define TRANSMISSION_DELAY  30000  //LoRa Transmission delay (ms)
 
 byte cipher[8] = {0xAA, 0x33, 0x5F, 0x3B, 0x47, 0x00, 0x01, 0xFE};
 byte buff[8];
@@ -198,8 +198,8 @@ void transmitGPS(double lat, double lng){
 
 
     Serial.print("Attempting Transmission... ");
-    for(int i=0; i<16; i++){
-        Serial.print(transmission[i]);
+    for(unsigned char i : transmission){
+        Serial.print(i);
         Serial.print(" ");
     }
     Serial.println();
