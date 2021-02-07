@@ -6,12 +6,11 @@
 #include <Adafruit_SSD1306.h>
 
 #include <TinyGPS++.h>
-#define HAS_SPI
-#include <TBeam.h> //Fraser's special TBeam header
+#define HAS_SPI  // Tbeam.h needs to know whether to use an SPI (7 wires) or I2C (4 wires) (inc. gnd and vcc)
+#include <TBeam.h>  // Pins are set for display in here
 
-#define DELAY 1000  //screen refresh delay
-#define TRANSMISSION_DELAY 30000  //LoRa Transmission delay
-
+#define DELAY 1000  //screen refresh delay (ms)
+#define TRANSMISSION_DELAY 30000  //LoRa Transmission delay (ms)
 
 byte cipher[8] = {0xAA, 0x33, 0x5F, 0x3B, 0x47, 0x00, 0x01, 0xFE};
 byte buff[8];
@@ -42,11 +41,11 @@ void updateDisplay(){
     display.setTextSize(1);
     display.setCursor(0,18);
     display.print("LAT:");
-    display.print(lat, 6);
+    display.print(lat, 8);
 
     display.setCursor(0,34);
     display.print("LNG:");
-    display.print(lon, 6);
+    display.print(lon, 8);
 
     display.print(" S:");
     display.print(gps.satellites.value());
@@ -139,7 +138,6 @@ void doubleToBytes(double input){
     }
     Serial.println();
 
-
 }
 void cipherBytes(byte *raw){
 
@@ -159,19 +157,18 @@ void setup()
     initBoard();
     // When the power is turned on, a delay is required.
     delay(1500);
-    //pinMode(2, OUTPUT);
-    //digitalWrite(2, HIGH);
+
     initDisplay();
 
-    // initialize SX1276 with default settings
-    Serial.print(F("[SX1276] Initializing ... "));
+    // initialise SX1276
+    Serial.print(F("SX1276 Initialising ... "));
 
     int state = radio.begin(868.0, 125.0, 9, 7, 0xAA);
 
     if (state == ERR_NONE) {
         Serial.println(F("success!"));
     } else {
-        Serial.print(F("failed, code "));
+        Serial.print(F("failed, code: "));
         Serial.println(state);
         delay(10000);
         sleep();
@@ -211,15 +208,15 @@ void transmitGPS(double lat, double lng){
     if (status == ERR_NONE) {
         Serial.println(F("success!"));
     } else {
-        Serial.print(F("failed, code "));
+        Serial.print(F("failed, code: "));
         Serial.println(status);
         delay(10000);
         sleep();
     }
 
 }
-long timer=millis();
-long timer2=millis();
+unsigned long timer=millis();
+unsigned long timer2=millis();
 void loop()
 {
 
@@ -237,7 +234,7 @@ void loop()
 
     }
     if (millis() > 5000 && gps.charsProcessed() < 10) {
-        Serial.println(F("No GPS detected: check wiring."));
+        Serial.println(F("No GPS detected: are you sure it's there?"));
         delay(10000);
         sleep();
     }
