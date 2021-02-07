@@ -174,12 +174,6 @@ void setup()
         sleep();
     }
 
-    // radio.standby()
-    // radio.sleep()
-    // radio.transmit();
-    // radio.receive();
-    // radio.readData();
-    // radio.scanChannel();
 }
 void transmitGPS(double lat, double lng){
     byte transmission[16];
@@ -204,11 +198,11 @@ void transmitGPS(double lat, double lng){
     }
     Serial.println();
 
-    int status = radio.transmit(transmission, 16);
+    int status = radio.transmit(transmission, 16); // Do the transmission
     if (status == ERR_NONE) {
         Serial.println(F("success!"));
     } else {
-        Serial.print(F("failed, code: "));
+        Serial.print(F("failed, code: ")); // Check radiolib docs for error codes
         Serial.println(status);
         delay(10000);
         sleep();
@@ -220,12 +214,12 @@ unsigned long timer2=millis();
 void loop()
 {
 
-    // This sketch displays information every time a new sentence is correctly encoded.
     while (Serial1.available() > 0) {
 
             if (gps.encode(Serial1.read())) {
                 getInfo();
                 if(millis()>timer+DELAY){updateDisplay();timer=millis();}
+                //You don't need to sleep every 30 secs. This is just for testing the sleep function. Remove the sleep call.
                 if(millis()>timer2+TRANSMISSION_DELAY){transmitGPS(lat, lon); timer2=millis(); batteryStatus();sleep();}
                 if(axpIrq){sortIQR();}
             }
