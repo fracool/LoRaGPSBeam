@@ -134,24 +134,6 @@ bool initPMU()
         Serial.println("OH NO, Power INIT FAIL!");
         return false;
     }
-    /*
-     * The charging indicator can be turned on or off
-     * * * */
-    //PMU.setChgLEDMode(LED_BLINK_4HZ);
-
-    /*
-    * The default ESP32 power supply has been turned on,
-    * no need to set, please do not set it, if it is turned off,
-    * it will not be able to program
-    *
-    *   PMU.setDCDC3Voltage(3300);
-    *   PMU.setPowerOutPut(AXP192_DCDC3, AXP202_ON);
-    *
-    * * * */
-
-    /*
-     *   Turn off unused power sources to save power
-     * **/
 
     PMU.setChargeControlCur(500);
     PMU.setChargingTargetVoltage(AXP202_TARGET_VOL_4_2V);
@@ -201,8 +183,8 @@ void disablePeripherals()
     PMU.setPowerOutPut(AXP192_LDO3, AXP202_OFF);
 
     //PMU.setPowerOutPut(AXP192_DCDC3, AXP202_OFF);
-    //PMU.setDCDC3Voltage(1800);  //Set to lower volts, save power?
-    PMU.setPowerOutPut(AXP192_DCDC3, AXP202_ON);  //Power for the esp32
+    //PMU.setDCDC3Voltage(1800);  //Set to lower volts, save power? doing this causes a crash
+    PMU.setPowerOutPut(AXP192_DCDC3, AXP202_ON);  //Power for the esp32 it's on anyways, this isn't needed
 
     PMU.setPowerOutPut(AXP192_DCDC1, AXP202_OFF);
     PMU.setPowerOutPut(AXP192_DCDC2, AXP202_OFF);
@@ -232,11 +214,6 @@ void initBoard()
     Serial.println("GPS INIT");
 
 
-    /*
-    * T-BeamV1.0, V1.1 LED defaults to low level as trun on,
-    * so it needs to be forced to pull up
-    * * * * */
-
     gpio_hold_dis(GPIO_NUM_4);
     pinMode(BOARD_LED, OUTPUT);
     digitalWrite(BOARD_LED, LED_ON);
@@ -251,7 +228,7 @@ void initDisplay(){
     display.setTextColor(WHITE);
     display.setCursor(0,0);
     display.clearDisplay();
-    display.print("Tiny GPS, BIIITCH");
+    display.print("Tiny GPS, YO");
     display.display();
     delay(300);
 }
